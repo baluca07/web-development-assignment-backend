@@ -2,7 +2,6 @@ package hu.unideb.web_assingnment.data.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 
 @Entity
 public class EmployeeEntity {
@@ -13,12 +12,6 @@ public class EmployeeEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "position")
-    private String position;
-
-    @Column(name = "salary")
-    private double salary;
 
     // Kapcsolat a departmenthez
     @ManyToOne
@@ -42,22 +35,6 @@ public class EmployeeEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
     }
 
     public DepartmentEntity getDepartment() {
