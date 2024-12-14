@@ -27,18 +27,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
         EmployeeEntity entity = mapper.employeeDtoToEntity(employeeDTO);
-
-        // Társítsd a megfelelő DepartmentEntity-t
+        
         if (employeeDTO.getDepartmentId() != null) {
             DepartmentEntity department = repoDep.findById(employeeDTO.getDepartmentId())
                     .orElseThrow(() -> new RuntimeException("Department not found"));
             entity.setDepartmentEntity(department);
         }
 
-        // Mentés
         EmployeeEntity savedEntity = repo.save(entity);
 
-        // Térképezés EmployeeEntity -> EmployeeDTO
         return mapper.employeeEntityToDto(savedEntity);
     }
 
