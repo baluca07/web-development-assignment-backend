@@ -6,14 +6,16 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface DepartmentMapper {
 
     @Mapping(target = "id", source = "id")
-    DepartmentDTO employeeEntityToDto(DepartmentEntity entity);
-    List<DepartmentDTO> employeeEntityListToDtoList(List<DepartmentEntity> entities);
+    DepartmentDTO departmentEntityToDto(Optional<DepartmentEntity> entity);
+    List<DepartmentDTO> departmentEntityListToDtoList(List<DepartmentEntity> entities);
 
-    DepartmentEntity employeeDtoToEntity(DepartmentDTO dto);
-    List<DepartmentEntity> employeeDtoListToEntityList(List<DepartmentDTO> dtos);
+    DepartmentEntity departmentDtoToEntity(DepartmentDTO dto);
+    List<DepartmentEntity> departmentDtoListToEntityList(List<DepartmentDTO> dtos);
+
 }
