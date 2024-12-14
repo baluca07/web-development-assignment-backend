@@ -40,6 +40,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public EmployeeDTO updateEmployee(EmployeeDTO employeeDTO) throws Exception {
+        EmployeeEntity employee = repo.findById(employeeDTO.getId())
+                .orElseThrow(() -> new Exception("Employee not found with id: " + employeeDTO.getId()));
+
+        employee.setName(employeeDTO.getName());
+
+        EmployeeEntity updatedEmployee = repo.save(employee);
+
+        return mapper.employeeEntityToDto(updatedEmployee);
+    }
+
+    @Override
     public Optional<EmployeeDTO> getEmployeeById(Long id) {
         Optional<EmployeeEntity> entity = repo.findById(id);
         return entity.map(mapper::employeeEntityToDto);  // Mapping the entity to DTO if present

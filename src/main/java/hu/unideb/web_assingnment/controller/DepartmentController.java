@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.web.servlet.function.ServerResponse.status;
+
 @RestController
 @RequestMapping("/api/departments")
 public class DepartmentController {
@@ -17,30 +19,37 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    // Department hozzáadása
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<DepartmentDTO> saveDepartment(@RequestBody DepartmentDTO departmentDTO) {
         DepartmentDTO savedDepartment = departmentService.saveDepartment(departmentDTO);
         return new ResponseEntity<>(savedDepartment, HttpStatus.CREATED);
     }
 
-    // Egy department lekérdezése id alapján
-    @GetMapping("/{id}")
-    public ResponseEntity<DepartmentDTO> getDepartmentById(@PathVariable Long id) {
+    @PutMapping("/update")
+    public ResponseEntity<DepartmentDTO> updateDepartment(@RequestBody DepartmentDTO departmentDTO){
+        DepartmentDTO updatedDepartment = null;
+        try {
+            updatedDepartment = departmentService.updateDepartment(departmentDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<DepartmentDTO> getDepartmentById(@RequestParam Long id) {
         Optional<DepartmentDTO> departmentDTO = departmentService.getDepartmentById(id);
         return departmentDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Minden department lekérdezése
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<DepartmentDTO>> getAllDepartments() {
         List<DepartmentDTO> departments = departmentService.getAllDepartments();
         return ResponseEntity.ok(departments);
     }
 
-    // Department törlése id alapján
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteDepartment(@RequestParam Long id) {
         departmentService.deleteDepartment(id);
         return ResponseEntity.noContent().build();
     }

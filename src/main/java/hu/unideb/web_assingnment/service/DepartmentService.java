@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface DepartmentService {
     DepartmentDTO saveDepartment(DepartmentDTO department);
+    DepartmentDTO updateDepartment(DepartmentDTO department) throws Exception;
     Optional<DepartmentDTO> getDepartmentById(Long id);
     List<DepartmentDTO> getAllDepartments();
     void deleteDepartment(Long id);

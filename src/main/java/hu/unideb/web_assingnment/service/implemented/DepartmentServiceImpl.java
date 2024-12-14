@@ -25,6 +25,21 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public DepartmentDTO updateDepartment(DepartmentDTO departmentDTO) throws Exception {
+        Optional<DepartmentEntity> existingDepartment = repo.findById(departmentDTO.getId());
+
+        if (existingDepartment.isPresent()) {
+            DepartmentEntity department = existingDepartment.get();
+            department.setName(departmentDTO.getName());
+
+            DepartmentEntity updatedDepartment = repo.save(department);
+
+            return mapper.departmentEntityToDto(updatedDepartment);
+        } else {
+            throw new Exception("Department not found with id " + departmentDTO.getId());
+        }
+    }
+    @Override
     public Optional<DepartmentDTO> getDepartmentById(Long id) {
         Optional<DepartmentEntity> entity = repo.findById(id);
         return entity.map(mapper::departmentEntityToDto);

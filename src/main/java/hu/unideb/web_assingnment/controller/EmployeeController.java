@@ -17,31 +17,35 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    // Alkalmazott hozzáadása
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO savedEmployee = employeeService.saveEmployee(employeeDTO);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
-
-    // Egy alkalmazott lekérdezése id alapján
-    @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long id) {
+    @PutMapping("/update")
+    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        try {
+            EmployeeDTO updatedEmployee = employeeService.updateEmployee(employeeDTO);
+            return ResponseEntity.ok(updatedEmployee);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+    @GetMapping
+    public ResponseEntity<EmployeeDTO> getEmployeeById(@RequestParam Long id) {
         Optional<EmployeeDTO> employeeDTO = employeeService.getEmployeeById(id);
         return employeeDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Minden alkalmazott lekérdezése
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
         List<EmployeeDTO> employees = employeeService.getAllEmployees();
         return ResponseEntity.ok(employees);
     }
 
 
-    // Alkalmazott törlése id alapján
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteEmployee(@RequestParam Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
     }
