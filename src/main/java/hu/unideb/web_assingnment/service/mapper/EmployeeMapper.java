@@ -11,6 +11,7 @@ import java.util.List;
 public interface EmployeeMapper {
 
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "departmentId", source = "departmentId")
     EmployeeDTO employeeEntityToDto(EmployeeEntity entity);
     List<EmployeeDTO> employeeEntityListToDtoList(List<EmployeeEntity> entities);
 

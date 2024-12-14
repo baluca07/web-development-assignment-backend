@@ -1,5 +1,6 @@
 package hu.unideb.web_assingnment.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 
@@ -37,8 +38,9 @@ public class EmployeeEntity {
         this.name = name;
     }
 
-    public DepartmentEntity getDepartment() {
-        return departmentEntity;
+    @JsonProperty("departmentId")
+    public Long getDepartmentId() {
+        return departmentEntity != null ? departmentEntity.getId() : null;
     }
 
     public void setDepartmentEntity(DepartmentEntity departmentEntity) {
