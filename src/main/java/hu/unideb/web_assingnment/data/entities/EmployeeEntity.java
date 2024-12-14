@@ -14,8 +14,8 @@ public class EmployeeEntity {
     private String name;
 
     // Kapcsolat a departmenthez
-    @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "departmentId", referencedColumnName = "id", nullable = false) // Foreign key kapcsolat
     private DepartmentEntity departmentEntity;
 
     // Konstruktor, getterek és setterek

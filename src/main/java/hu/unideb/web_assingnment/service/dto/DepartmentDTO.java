@@ -1,19 +1,21 @@
 package hu.unideb.web_assingnment.service.dto;
 
+import java.util.List;
+
 public class DepartmentDTO {
 
     private Long id;
     private String name;
+    private List<EmployeeDTO> employees;  // Az alkalmazottak listája
 
-    // Constructor
     public DepartmentDTO() {}
 
-    public DepartmentDTO(Long id, String name) {
+    public DepartmentDTO(Long id, String name, List<EmployeeDTO> employees) {
         this.id = id;
         this.name = name;
+        this.employees = employees;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -30,8 +32,12 @@ public class DepartmentDTO {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "DepartmentDTO{id=" + id + ", name='" + name + "'}";
+    public List<EmployeeDTO> getEmployees() {
+        return employees;
     }
+
+    public void setEmployees(List<EmployeeDTO> employees) {
+        this.employees = employees;
+    }
+
 }

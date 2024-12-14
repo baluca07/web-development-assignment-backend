@@ -1,7 +1,6 @@
 package hu.unideb.web_assingnment.service.mapper;
 
 import hu.unideb.web_assingnment.data.entities.EmployeeEntity;
-import hu.unideb.web_assingnment.data.repositories.EmployeeRepository;
 import hu.unideb.web_assingnment.service.dto.EmployeeDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,7 +12,7 @@ import java.util.Optional;
 public interface EmployeeMapper {
 
     @Mapping(target = "id", source = "id")
-    EmployeeDTO employeeEntityToDto(Optional<EmployeeEntity> entity);
+    EmployeeDTO employeeEntityToDto(EmployeeEntity entity);
     List<EmployeeDTO> employeeEntityListToDtoList(List<EmployeeEntity> entities);
 
     EmployeeEntity employeeDtoToEntity(EmployeeDTO dto);

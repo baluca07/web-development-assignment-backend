@@ -14,7 +14,7 @@ public class DepartmentEntity {
     private String name;
 
     // Kapcsolat az alkalmazottakkal (egy osztálynak több alkalmazottja lehet)
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL)
     private List<EmployeeEntity> employees;
 
     // Konstruktor, getterek és setterek

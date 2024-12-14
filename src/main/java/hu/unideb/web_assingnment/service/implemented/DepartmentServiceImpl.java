@@ -21,13 +21,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDTO saveDepartment(DepartmentDTO department) {
         DepartmentEntity entity = mapper.departmentDtoToEntity(department);
         DepartmentEntity savedEntity = repo.save(entity);
-        return mapper.departmentEntityToDto(Optional.of(savedEntity));
+        return mapper.departmentEntityToDto(savedEntity);
     }
 
     @Override
     public Optional<DepartmentDTO> getDepartmentById(Long id) {
-        return Optional.ofNullable(mapper.departmentEntityToDto(repo.findById(id)));
+        Optional<DepartmentEntity> entity = repo.findById(id);
+        return entity.map(mapper::departmentEntityToDto);
     }
+
 
     @Override
     public List<DepartmentDTO> getAllDepartments() {

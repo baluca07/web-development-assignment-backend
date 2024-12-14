@@ -12,10 +12,9 @@ import java.util.Optional;
 public interface DepartmentMapper {
 
     @Mapping(target = "id", source = "id")
-    DepartmentDTO departmentEntityToDto(Optional<DepartmentEntity> entity);
+    DepartmentDTO departmentEntityToDto(DepartmentEntity entity);
     List<DepartmentDTO> departmentEntityListToDtoList(List<DepartmentEntity> entities);
 
     DepartmentEntity departmentDtoToEntity(DepartmentDTO dto);
-    List<DepartmentEntity> departmentDtoListToEntityList(List<DepartmentDTO> dtos);
 
 }
