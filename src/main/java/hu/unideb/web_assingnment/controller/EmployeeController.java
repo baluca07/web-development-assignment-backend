@@ -17,6 +17,10 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions() {
+        return ResponseEntity.ok().build();
+    }
     @PostMapping("/add")
     public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO savedEmployee = employeeService.saveEmployee(employeeDTO);

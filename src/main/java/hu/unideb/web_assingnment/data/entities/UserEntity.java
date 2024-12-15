@@ -1,11 +1,17 @@
 package hu.unideb.web_assingnment.data.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,5 +77,14 @@ public class UserEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, email, password, role);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+    @Override
+    public String getUsername() {
+        return email;
     }
 }

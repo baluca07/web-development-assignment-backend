@@ -19,6 +19,11 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions() {
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/add")
     public ResponseEntity<DepartmentDTO> saveDepartment(@RequestBody DepartmentDTO departmentDTO) {
         DepartmentDTO savedDepartment = departmentService.saveDepartment(departmentDTO);
