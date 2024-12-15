@@ -1,5 +1,7 @@
 package hu.unideb.web_assingnment.service.dto;
 
+import java.util.Objects;
+
 public class EmployeeDTO {
 
     private Long id;
@@ -41,7 +43,15 @@ public class EmployeeDTO {
     }
 
     @Override
-    public String toString() {
-        return "EmployeeDTO{id=" + id + ", name='" + name + "', departmentId=" + departmentId + "}";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeDTO that = (EmployeeDTO) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(departmentId, that.departmentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, departmentId);
     }
 }

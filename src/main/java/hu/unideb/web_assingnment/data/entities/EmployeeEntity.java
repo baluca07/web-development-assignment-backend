@@ -3,6 +3,8 @@ package hu.unideb.web_assingnment.data.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 
 @Entity
 public class EmployeeEntity {
@@ -45,5 +47,18 @@ public class EmployeeEntity {
 
     public void setDepartmentEntity(DepartmentEntity departmentEntity) {
         this.departmentEntity = departmentEntity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeEntity entity = (EmployeeEntity) o;
+        return Objects.equals(id, entity.id) && Objects.equals(name, entity.name) && Objects.equals(departmentEntity, entity.departmentEntity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, departmentEntity);
     }
 }
