@@ -46,9 +46,13 @@ public class SecurityConfig {
                         config.setAllowedHeaders(Arrays.asList("*"));
                         return config;
                     }
-                })).csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/auth/**","/api/departments/","api/departments/all",
-                                "api/employees/","api/employees/all","/database/**").permitAll()
+                }))
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/auth/**", "/api/departments/", "api/departments/all",
+                                "api/employees/", "api/employees/all", "/database/**").permitAll()
+                        .requestMatchers("/api/departments/add","/api/employees/add").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/api/departments/delete", "/api/departments/update","/api/employees/delete", "/api/employees/update").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -22,16 +24,23 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String generateToken(UserDetails userDetails) {//UserDetails, Map<String, Object>
-        Map<String, Object> extraClaims = new HashMap<>();//public/private claimek
-        userDetails.getAuthorities().forEach(authority -> extraClaims.put(authority.getAuthority(), authority));
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> extraClaims = new HashMap<>();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(authority -> "ROLE_" + authority.getAuthority())
+                .collect(Collectors.toList());
+        extraClaims.put("roles", roles);
 
-        return Jwts.builder().claims(extraClaims).subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+300000))
+        // Token létrehozása
+        return Jwts.builder()
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 300000))
                 .signWith(getKey())
                 .compact();
     }
+
 
     @Override
     public boolean validateToken(String token, UserDetails userDetails) {
