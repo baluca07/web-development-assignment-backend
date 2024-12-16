@@ -48,8 +48,9 @@ public class SecurityConfig {
                     }
                 })).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/auth/**","/api/departments/","api/departments/all",
-                                "api/employees/","api/employees/all").permitAll()
-                        .anyRequest().authenticated())
+                                "api/employees/","api/employees/all","/database/**").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

@@ -12,8 +12,8 @@
 	<artifactId>web-assingnment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>web-assingnment</name>
-	<description>Web assingment</description>
+	<name>web-development-assignment-backend</name>
+	<description>Web Development Assignment Backend</description>
 	<url/>
 	<licenses>
 		<license/>

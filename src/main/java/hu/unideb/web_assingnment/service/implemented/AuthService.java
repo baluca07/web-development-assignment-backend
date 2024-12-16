@@ -23,7 +23,7 @@ public class AuthService {
     @Autowired
     private JwtService jwtService;
 
-    public String register(UserDTO user) {
+    public void register(UserDTO user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         UserEntity entity = new UserEntity();
@@ -33,8 +33,7 @@ public class AuthService {
 
         entity = userRepository.save(entity);
 
-        return jwtService.generateToken(entity);
-
+        jwtService.generateToken(entity);
 
 
     }

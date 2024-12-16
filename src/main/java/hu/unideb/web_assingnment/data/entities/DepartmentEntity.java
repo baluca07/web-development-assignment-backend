@@ -14,12 +14,16 @@ public class DepartmentEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    // Kapcsolat az alkalmazottakkal (egy osztálynak több alkalmazottja lehet)
     @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL)
     private List<EmployeeEntity> employees;
 
-    // Konstruktor, getterek és setterek
     public DepartmentEntity() {}
+
+    public DepartmentEntity(Long id, String name, List<EmployeeEntity> employees) {
+        this.id = id;
+        this.name = name;
+        this.employees = employees;
+    }
 
     public Long getId() {
         return id;

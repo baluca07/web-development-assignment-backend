@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Entity
@@ -16,13 +17,20 @@ public class EmployeeEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    // Kapcsolat a departmenthez
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "departmentId", referencedColumnName = "id", nullable = false) // Foreign key kapcsolat
+    @JoinColumn(name = "departmentId", referencedColumnName = "id", nullable = false)
     private DepartmentEntity departmentEntity;
 
-    // Konstruktor, getterek és setterek
-    public EmployeeEntity() {}
+
+    public EmployeeEntity(Long id, String name, DepartmentEntity departmentEntity) {
+        this.id = id;
+        this.name = name;
+        this.departmentEntity = departmentEntity;
+    }
+
+    public EmployeeEntity() {
+
+    }
 
     public Long getId() {
         return id;
