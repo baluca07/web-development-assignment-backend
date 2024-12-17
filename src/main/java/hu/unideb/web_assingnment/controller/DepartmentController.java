@@ -42,7 +42,7 @@ public class DepartmentController {
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<DepartmentDTO> getDepartmentById(@RequestParam Long id) {
         Optional<DepartmentDTO> departmentDTO = departmentService.getDepartmentById(id);
         return departmentDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

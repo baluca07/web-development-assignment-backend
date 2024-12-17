@@ -2,6 +2,7 @@ package hu.unideb.web_assingnment.controller;
 
 import hu.unideb.web_assingnment.service.EmployeeService;
 import hu.unideb.web_assingnment.service.dto.EmployeeDTO;
+import hu.unideb.web_assingnment.service.implemented.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.Optional;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeService;
 
     @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
     public ResponseEntity<Void> handleOptions() {
@@ -35,7 +36,7 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<EmployeeDTO> getEmployeeById(@RequestParam Long id) {
         Optional<EmployeeDTO> employeeDTO = employeeService.getEmployeeById(id);
         return employeeDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
