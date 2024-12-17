@@ -48,8 +48,8 @@ public class DataLoader implements CommandLineRunner {
             departmentRepository.save(department2);
             System.out.println("Departments created: HR, IT");
             if (employeeRepository.count() == 0) {
-                EmployeeEntity employee1 = new EmployeeEntity(null, "Motiv Ottó",department1);
-                EmployeeEntity employee2 = new EmployeeEntity(null, "Bit Edit",department2);
+                EmployeeEntity employee1 = new EmployeeEntity(null, "Mr. Paperwork",department1);
+                EmployeeEntity employee2 = new EmployeeEntity(null, "Sir Fix-a-Lot",department2);
                 employeeRepository.save(employee1);
                 employeeRepository.save(employee2);
                 System.out.println("Employees created: Motiv Ottó, Bit Edit");
