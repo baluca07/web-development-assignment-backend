@@ -23,7 +23,10 @@ public class AuthService {
     @Autowired
     private JwtService jwtService;
 
-    public void register(UserDTO user) {
+    public void register(UserDTO user) throws Exception {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new Exception("User already exists with this email: " + user.getEmail());
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         UserEntity entity = new UserEntity();
