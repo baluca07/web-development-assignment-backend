@@ -46,10 +46,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employee.setName(employeeDTO.getName());
 
+        if (employeeDTO.getDepartmentId() != null) {
+            DepartmentEntity department = repoDep.findById(employeeDTO.getDepartmentId())
+                    .orElseThrow(() -> new Exception("Department not found with id: " + employeeDTO.getDepartmentId()));
+
+            employee.setDepartmentEntity(department);
+        }
+
         EmployeeEntity updatedEmployee = repo.save(employee);
 
         return mapper.employeeEntityToDto(updatedEmployee);
     }
+
+
 
     @Override
     public Optional<EmployeeDTO> getEmployeeById(Long id) {
