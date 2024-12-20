@@ -27,12 +27,13 @@ public class EmployeeController {
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
     @PutMapping("/update")
-    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
         try {
             EmployeeDTO updatedEmployee = employeeService.updateEmployee(employeeDTO);
             return ResponseEntity.ok(updatedEmployee);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + e.getMessage());
         }
     }
     @GetMapping("/get")

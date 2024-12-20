@@ -30,12 +30,12 @@ public class DepartmentController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<DepartmentDTO> updateDepartment(@RequestBody DepartmentDTO departmentDTO){
+    public ResponseEntity<?> updateDepartment(@RequestBody DepartmentDTO departmentDTO){
         DepartmentDTO updatedDepartment = null;
         try {
             updatedDepartment = departmentService.updateDepartment(departmentDTO);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + e.getMessage());
         }
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
